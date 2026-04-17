@@ -99,33 +99,155 @@ async function uploadDocuments() {
 </script>
 
 <style scoped>
-.upload-container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-top: 100px;
+.upload-container,
+.upload-container * {
+	box-sizing: border-box;
 }
+
+.upload-container {
+	max-width: 900px;
+	margin: 0 auto;
+	padding: 36px 32px 48px;
+	font-family: Roboto, 'Segoe UI', Arial, sans-serif;
+	color: #1d1b20;
+}
+
+/* TITLE */
+
+h1 {
+	margin: 0 0 24px;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* FORM CARD */
+
 form {
 	display: flex;
 	flex-direction: column;
-	width: 350px;
+	gap: 18px;
+	padding: 28px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 28px;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05),
+		0 12px 32px rgba(15, 23, 42, 0.08);
 }
-input,
-button {
-	margin-bottom: 10px;
-	padding: 8px;
-	font-size: 16px;
+
+/* FILE INPUT */
+
+input[type='file'] {
+	padding: 14px;
+	border-radius: 16px;
+	border: 1px dashed #c4c7c5;
+	background: #f7f5fb;
+	cursor: pointer;
+	transition: 0.2s;
 }
+
+input[type='file']:hover {
+	border-color: #6750a4;
+	background: #f3edff;
+}
+
+/* FILE BLOCK */
+
 .file-title-block {
 	display: flex;
-	align-items: center;
+	flex-direction: column;
 	gap: 10px;
-	margin-bottom: 5px;
+	padding: 16px;
+	border-radius: 18px;
+	background: #faf8ff;
+	border: 1px solid #e4def4;
 }
+
+/* FILE NAME */
+
+.file-title-block span {
+	font-size: 14px;
+	font-weight: 600;
+	color: #1d1b20;
+}
+
+/* INPUTS */
+
+.file-title-block input,
+.file-title-block select {
+	height: 44px;
+	padding: 0 14px;
+	border-radius: 12px;
+	border: 1px solid #c4c7c5;
+	font-size: 14px;
+	outline: none;
+	transition: 0.2s;
+	background: #ffffff;
+}
+
+.file-title-block input:focus,
+.file-title-block select:focus {
+	border-color: #6750a4;
+	box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.14);
+}
+
+/* BUTTON */
+
+button[type='submit'] {
+	margin-top: 8px;
+	height: 48px;
+	border-radius: 999px;
+	border: none;
+	background: #6750a4;
+	color: #ffffff;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
+	transition: 0.2s;
+}
+
+button[type='submit']:hover {
+	background: #5b4696;
+	box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+button[type='submit']:active {
+	transform: translateY(1px);
+}
+
+/* STATES */
+
 .error {
-	color: red;
+	margin-top: 4px;
+	padding: 12px 14px;
+	border-radius: 12px;
+	background: #fce8e6;
+	border: 1px solid rgba(179, 38, 30, 0.2);
+	color: #b3261e;
+	font-size: 14px;
 }
+
 .success {
-	color: green;
+	margin-top: 4px;
+	padding: 12px 14px;
+	border-radius: 12px;
+	background: #e6f4ea;
+	border: 1px solid rgba(52, 168, 83, 0.25);
+	color: #1e8e3e;
+	font-size: 14px;
+}
+
+/* ADAPTIVE */
+
+@media (max-width: 700px) {
+	.upload-container {
+		padding: 24px 20px;
+	}
+
+	form {
+		padding: 20px;
+		border-radius: 24px;
+	}
 }
 </style>

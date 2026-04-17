@@ -98,84 +98,161 @@ onMounted(loadProjects);
 </script>
 
 <style scoped>
-.projects-container {
-	max-width: 700px;
-	margin: 40px auto;
-	padding: 20px;
+.projects-container,
+.projects-container * {
+	box-sizing: border-box;
 }
+
+.projects-container {
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 36px 32px 48px;
+	font-family: Roboto, 'Segoe UI', Arial, sans-serif;
+	color: #1d1b20;
+}
+
+/* TITLE */
+
+h1 {
+	margin: 0 0 24px;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* CREATE FORM */
+
 .create-project-form {
 	display: flex;
-	gap: 10px;
-	margin-bottom: 25px;
+	gap: 12px;
+	margin-bottom: 24px;
+	padding: 20px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 20px;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
 }
+
+.create-project-form input {
+	flex: 1;
+	height: 44px;
+	padding: 0 14px;
+	border-radius: 12px;
+	border: 1px solid #c4c7c5;
+	font-size: 14px;
+	outline: none;
+	transition: 0.2s;
+}
+
+.create-project-form input:focus {
+	border-color: #6750a4;
+	box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.14);
+}
+
+.create-project-form button {
+	height: 44px;
+	padding: 0 20px;
+	border-radius: 999px;
+	border: none;
+	background: #6750a4;
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
+	transition: 0.2s;
+}
+
+.create-project-form button:hover {
+	background: #5b4696;
+	box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+/* EMPTY */
+
+.empty {
+	padding: 32px;
+	text-align: center;
+	color: #5f6368;
+	font-size: 15px;
+}
+
+/* LIST */
+
 .projects-list {
 	list-style: none;
 	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
+
+/* CARD */
+
 .project-item {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	padding: 12px;
-	border-bottom: 1px solid #eee;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 20px 22px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 20px;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+	transition: 0.2s;
 }
+
+.project-item:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px rgba(103, 80, 164, 0.12);
+}
+
+/* TEXT */
+
 .project-link {
-	font-weight: 500;
-	color: #007bff;
+	font-size: 16px;
+	font-weight: 600;
+	color: #1d1b20;
 	text-decoration: none;
 }
+
 .project-link:hover {
-	text-decoration: underline;
+	color: #6750a4;
 }
+
 .project-info {
-	color: #888;
-	font-size: 0.95em;
+	font-size: 13px;
+	color: #5f6368;
 }
-.rename-btn,
+
+/* DELETE */
+
 .delete-btn {
-	margin-left: 10px;
-	padding: 4px 10px;
+	height: 40px;
+	padding: 0 16px;
+	border-radius: 999px;
 	border: none;
-	border-radius: 4px;
+	background: #fce8e6;
+	color: #b3261e;
+	font-weight: 600;
 	cursor: pointer;
+	transition: 0.2s;
 }
-.rename-btn {
-	background: #ffc107;
-	color: #333;
-}
-.delete-btn {
-	background: #dc3545;
-	color: white;
-}
-.rename-btn:hover {
-	background: #e0a800;
-}
+
 .delete-btn:hover {
-	background: #b71c1c;
+	background: #f8d7d4;
 }
-.empty {
-	color: #888;
-	font-style: italic;
-	margin-top: 20px;
-}
-.modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: rgba(0, 0, 0, 0.3);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-.modal-content {
-	background: #fff;
-	padding: 30px;
-	border-radius: 8px;
-	min-width: 300px;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+
+/* ADAPTIVE */
+
+@media (max-width: 700px) {
+	.projects-container {
+		padding: 24px 20px;
+	}
+
+	.project-item {
+		flex-direction: column;
+		align-items: flex-start;
+	}
 }
 </style>

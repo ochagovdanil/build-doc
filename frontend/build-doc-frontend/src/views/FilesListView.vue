@@ -324,158 +324,268 @@ watch([searchQuery, selectedStage, sortBy], loadFiles);
 </script>
 
 <style scoped>
-.files-list-container {
-	max-width: 800px;
-	margin: 40px auto;
-	padding: 20px;
+.files-list-container,
+.files-list-container * {
+	box-sizing: border-box;
 }
+
+.files-list-container {
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 36px 32px 48px;
+	font-family: Roboto, 'Segoe UI', Arial, sans-serif;
+	color: #1d1b20;
+}
+
+/* Заголовок */
+
+h1 {
+	margin: 0 0 24px;
+	font-size: 32px;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+}
+
+/* ФИЛЬТРЫ */
+
 .filters {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin-bottom: 30px;
-	padding: 15px;
-	background: #f8f9fa;
-	border-radius: 8px;
+	gap: 14px;
+	margin-bottom: 24px;
+	padding: 24px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 24px;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05),
+		0 12px 32px rgba(15, 23, 42, 0.08);
 }
+
 .search-input,
-.filter-select {
-	padding: 8px 12px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
+.filter-select,
+.filter-date {
+	height: 48px;
+	padding: 0 14px;
+	border: 1px solid #c4c7c5;
+	border-radius: 14px;
+	background: #ffffff;
 	font-size: 14px;
+	outline: none;
+	transition: 0.2s;
 }
+
+.search-input {
+	flex: 1;
+	min-width: 220px;
+}
+
+.filter-select,
+.filter-date {
+	min-width: 180px;
+}
+
+.search-input:focus,
+.filter-select:focus,
+.filter-date:focus {
+	border-color: #6750a4;
+	box-shadow: 0 0 0 4px rgba(103, 80, 164, 0.14);
+}
+
+/* КНОПКА СБРОСА */
+
 .reset-btn {
-	padding: 8px 16px;
-	background: #dc3545;
-	color: white;
+	height: 48px;
+	padding: 0 18px;
+	border-radius: 999px;
 	border: none;
-	border-radius: 4px;
+	background: #ece6f0;
+	color: #4f378b;
+	font-weight: 600;
 	cursor: pointer;
+	transition: 0.2s;
 }
+
 .reset-btn:hover {
-	background: #c82333;
+	background: #e0d7f5;
 }
+
+/* СОСТОЯНИЯ */
+
 .loading,
 .empty {
-	text-align: center;
 	padding: 40px;
-	font-size: 18px;
-	color: #666;
+	text-align: center;
+	color: #5f6368;
+	font-size: 15px;
 }
+
+/* СПИСОК */
+
 .files-list {
 	list-style: none;
 	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 }
+
+/* КАРТОЧКА */
+
 .file-item {
 	display: flex;
 	align-items: center;
-	gap: 12px;
-	padding: 15px;
-	border: 1px solid #eee;
-	border-radius: 6px;
-	margin-bottom: 10px;
-	background: white;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 20px 22px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 20px;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+	transition: 0.2s;
 }
-.file-title {
-	flex: 1;
-	font-weight: 500;
-	color: #007bff;
+
+.file-item:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px rgba(103, 80, 164, 0.12);
+}
+
+/* ТЕКСТ */
+
+.file-title-link {
+	font-size: 16px;
+	font-weight: 600;
+	color: #1d1b20;
 	text-decoration: none;
 }
-.file-title:hover {
-	text-decoration: underline;
+
+.file-title-link:hover {
+	color: #6750a4;
 }
+
 .stage {
-	background: #e3f2fd;
-	color: #1976d2;
-	padding: 4px 8px;
-	border-radius: 12px;
-	font-size: 0.85em;
-	white-space: nowrap;
+	padding: 6px 10px;
+	border-radius: 999px;
+	background: #f3edff;
+	color: #4f378b;
+	font-size: 12px;
+	font-weight: 500;
+	border: 1px solid rgba(103, 80, 164, 0.12);
 }
+
 .date {
-	color: #666;
-	font-size: 0.9em;
+	font-size: 13px;
+	color: #5f6368;
 }
-.results-info {
-	text-align: center;
-	margin-top: 20px;
-	padding: 10px;
-	background: #d4edda;
-	border-radius: 4px;
-	color: #155724;
-}
+
+/* КНОПКИ */
+
+.favorite-btn,
+.download-btn,
 .delete-btn {
-	background: #dc3545;
-	color: white;
+	height: 40px;
+	padding: 0 14px;
+	border-radius: 999px;
 	border: none;
-	border-radius: 4px;
-	padding: 4px 10px;
 	cursor: pointer;
+	font-size: 14px;
+	font-weight: 600;
+	transition: 0.2s;
 }
-.delete-btn:hover {
-	background: #b71c1c;
-}
-.delete-all-btn {
-	background: #b71c1c;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 8px 16px;
-	margin-bottom: 15px;
-	cursor: pointer;
-}
-.delete-all-btn:hover {
-	background: #7f0000;
-}
-.download-btn {
-	background: #28a745;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 4px 10px;
-	cursor: pointer;
-	margin-right: 5px;
-}
-.download-btn:hover {
-	background: #1e7e34;
-}
-.download-all-btn {
-	background: #17a2b8;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 8px 16px;
-	margin-bottom: 15px;
-	margin-right: 10px;
-	cursor: pointer;
-}
-.download-all-btn:hover {
-	background: #117a8b;
-}
+
 .favorite-btn {
-	background: none;
-	border: none;
-	font-size: 22px;
-	color: #aaa;
-	cursor: pointer;
-	margin-right: 5px;
+	background: transparent;
+	font-size: 18px;
 }
+
 .favorite-btn.active {
-	color: #ffc107;
+	color: #fbbc04;
 }
-.export-btn {
-	background: #007bff;
+
+.favorite-btn:hover {
+	transform: scale(1.1);
+}
+
+.download-btn {
+	background: #6750a4;
 	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 8px 16px;
-	margin-bottom: 15px;
-	margin-right: 10px;
-	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
 }
+
+.download-btn:hover {
+	background: #5b4696;
+	box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+/* DELETE (опасное действие) */
+
+.delete-btn {
+	background: #fce8e6;
+	color: #b3261e;
+}
+
+.delete-btn:hover {
+	background: #f8d7d4;
+}
+
+/* НИЖНЯЯ ПАНЕЛЬ */
+
+.results-info {
+	margin-top: 20px;
+	font-size: 14px;
+	color: #5f6368;
+}
+
+.download-all-btn,
+.export-btn {
+	margin-top: 14px;
+	margin-right: 12px;
+	height: 44px;
+	padding: 0 20px;
+	border-radius: 999px;
+	border: none;
+	background: #6750a4;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
+	transition: 0.2s;
+}
+
+.download-all-btn:hover,
 .export-btn:hover {
-	background: #0056b3;
+	background: #5b4696;
+	box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
+}
+
+/* УДАЛИТЬ ВСЕ */
+
+.delete-all-btn {
+	margin-top: 14px;
+	height: 44px;
+	padding: 0 20px;
+	border-radius: 999px;
+	border: none;
+	background: #b3261e;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	box-shadow: 0 2px 6px rgba(179, 38, 30, 0.3);
+	transition: 0.2s;
+}
+
+.delete-all-btn:hover {
+	background: #8c1d18;
+	box-shadow: 0 6px 16px rgba(179, 38, 30, 0.35);
+}
+
+/* АДАПТИВ */
+
+@media (max-width: 900px) {
+	.file-item {
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 10px;
+	}
 }
 </style>

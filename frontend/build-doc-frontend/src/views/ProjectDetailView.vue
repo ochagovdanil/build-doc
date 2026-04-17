@@ -243,112 +243,155 @@ onMounted(loadProject);
 
 <style scoped>
 .project-detail-container {
-	max-width: 700px;
-	margin: 40px auto;
+	max-width: 1100px;
+	margin: 0 auto;
 	padding: 20px;
 }
+
+.project-detail-container h1 {
+	margin-bottom: 5px;
+}
+
+.project-detail-container p {
+	color: #666;
+	margin-bottom: 20px;
+}
+
+/* Добавление файла */
+.add-file-section {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.file-search-input {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	min-width: 220px;
+}
+
+.file-select {
+	padding: 8px 12px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	min-width: 220px;
+}
+
+.add-btn {
+	background: #4f46e5;
+	color: white;
+	border: none;
+	padding: 8px 14px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: 0.2s;
+}
+
+.add-btn:hover {
+	background: #4338ca;
+}
+
+/* Фильтр */
+.filter-section {
+	margin-bottom: 15px;
+}
+
+.filter-select {
+	padding: 8px 12px;
+	border-radius: 8px;
+	border: 1px solid #ddd;
+}
+
+/* Кнопки действий */
+.project-actions {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 15px;
+}
+
+.download-all-btn {
+	background: #22c55e;
+	color: white;
+	border: none;
+	padding: 8px 14px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+.export-btn {
+	background: #3b82f6;
+	color: white;
+	border: none;
+	padding: 8px 14px;
+	border-radius: 8px;
+	cursor: pointer;
+}
+
+/* Список файлов */
 .files-list {
 	list-style: none;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 }
+
 .file-item {
 	display: flex;
 	align-items: center;
-	gap: 10px;
-	padding: 10px 0;
-	border-bottom: 1px solid #eee;
+	gap: 15px;
+	padding: 10px 15px;
+	border: 1px solid #eee;
+	border-radius: 10px;
+	background: #fff;
+	transition: 0.2s;
 }
+
+.file-item:hover {
+	background: #f9fafb;
+}
+
 .file-title-link {
-	color: #007bff;
+	flex: 1;
 	text-decoration: none;
+	color: #333;
 	font-weight: 500;
 }
-.file-title-link:hover {
-	text-decoration: underline;
+
+.stage-label {
+	background: #eef2ff;
+	color: #4f46e5;
+	padding: 4px 8px;
+	border-radius: 6px;
+	font-size: 12px;
+	white-space: nowrap;
 }
+
 .remove-btn {
-	background: #dc3545;
+	background: #ef4444;
 	color: white;
 	border: none;
-	border-radius: 4px;
-	padding: 4px 10px;
+	padding: 6px 10px;
+	border-radius: 6px;
 	cursor: pointer;
+	transition: 0.2s;
 }
+
 .remove-btn:hover {
-	background: #b71c1c;
+	background: #dc2626;
 }
+
+/* Пусто / загрузка */
 .empty {
+	text-align: center;
 	color: #888;
-	font-style: italic;
 	margin-top: 20px;
 }
+
 .loading {
 	text-align: center;
 	padding: 40px;
-	font-size: 18px;
-	color: #666;
-}
-.add-file-section {
-	display: flex;
-	align-items: center;
-	gap: 10px;
-	margin-bottom: 20px;
-}
-.file-select {
-	padding: 4px 8px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-}
-.add-btn {
-	background: #28a745;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 4px 10px;
-	cursor: pointer;
-}
-.add-btn:hover {
-	background: #1e7e34;
-}
-.file-search-input {
-	padding: 4px 8px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-	margin-right: 8px;
-}
-.filter-section {
-	margin-bottom: 20px;
-}
-.filter-select {
-	padding: 4px 8px;
-	border-radius: 4px;
-	border: 1px solid #ccc;
-}
-.stage-label {
-	margin-left: 12px;
-	background: #e3f2fd;
-	color: #1976d2;
-	padding: 4px 8px;
-	border-radius: 12px;
-	font-size: 0.95em;
-	white-space: nowrap;
-}
-.project-actions {
-	margin-bottom: 20px;
-	display: flex;
-	gap: 10px;
-}
-.download-all-btn,
-.export-btn {
-	background: #007bff;
-	color: white;
-	border: none;
-	border-radius: 4px;
-	padding: 8px 16px;
-	cursor: pointer;
-}
-.download-all-btn:hover,
-.export-btn:hover {
-	background: #0056b3;
 }
 </style>
