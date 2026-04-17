@@ -14,7 +14,9 @@
 			</button>
 		</h1>
 		<div class="file-info">
-			<p><strong>Версия:</strong> {{ file.version }}</p>
+			<p>
+				<strong>Версия:</strong> <mark>{{ file.version }}</mark>
+			</p>
 			<p><strong>Этап:</strong> {{ stageLabel(file.stage) }}</p>
 			<p>
 				<strong>Дата загрузки:</strong>
@@ -39,8 +41,18 @@
 			</p>
 			<p>
 				<strong>Избранное:</strong>
-				<span v-if="file.is_favorite">★</span>
-				<span v-else>☆</span>
+				<span
+					v-if="file.is_favorite"
+					style="
+						color: orange;
+						font-size: 1.2rem;
+						margin-left: 0.5rem;
+					"
+					>★</span
+				>
+				<span v-else style="font-size: 1.2rem; margin-left: 0.5rem"
+					>☆</span
+				>
 			</p>
 		</div>
 		<div class="comments-section">
@@ -285,6 +297,7 @@ h1 {
 	font-weight: 600;
 	cursor: pointer;
 	transition: 0.2s;
+	margin-left: 0.5rem;
 }
 
 .edit-btn {

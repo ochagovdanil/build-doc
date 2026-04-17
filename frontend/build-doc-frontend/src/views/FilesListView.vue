@@ -50,59 +50,62 @@
 		<div v-else-if="files.length === 0" class="empty">
 			Нет файлов по заданным фильтрам.
 		</div>
-		<ul v-else class="files-list">
-			<li v-for="file in files" :key="file.id" class="file-item">
-				<router-link :to="`/file/${file.id}`" class="file-title-link">
-					{{ file.title }}
-				</router-link>
-				<span class="stage">{{ stageLabel(file.stage) }}</span>
-				<span class="date">{{ formatDate(file.uploaded_at) }}</span>
-				<button
-					@click="toggleFavorite(file.id)"
-					:class="
-						file.is_favorite
-							? 'favorite-btn active'
-							: 'favorite-btn'
-					"
-				>
-					{{ file.is_favorite ? '★' : '☆' }}
-				</button>
-				<button
-					@click="downloadFile(file.id, file.title)"
-					class="download-btn"
-				>
-					Скачать
-				</button>
-				<button @click="deleteFile(file.id)" class="delete-btn">
-					Удалить
-				</button>
-			</li>
-		</ul>
+		<div v-else>
+			<div class="actions-header">
+				<div class="results-info">
+					Найдено: {{ files.length }} файлов
+				</div>
+				<div class="action-buttons">
+					<button @click="downloadAllFiles" class="download-all-btn">
+						Скачать все файлы (ZIP)
+					</button>
+					<button @click="deleteAllFiles" class="delete-all-btn">
+						Удалить все файлы
+					</button>
+					<button @click="exportMyToExcel" class="export-btn">
+						Экспорт в Excel
+					</button>
+				</div>
+			</div>
 
-		<div v-if="files.length > 0" class="results-info">
-			Найдено: {{ files.length }} файлов
+			<div class="files-grid">
+				<div v-for="file in files" :key="file.id" class="file-item">
+					<router-link
+						:to="`/file/${file.id}`"
+						class="file-title-link"
+					>
+						{{ file.title }}
+					</router-link>
+					<div class="file-details">
+						<span class="stage">{{ stageLabel(file.stage) }}</span>
+						<span class="date">{{
+							formatDate(file.uploaded_at)
+						}}</span>
+					</div>
+					<div class="file-actions">
+						<button
+							@click="toggleFavorite(file.id)"
+							:class="
+								file.is_favorite
+									? 'favorite-btn active'
+									: 'favorite-btn'
+							"
+						>
+							{{ file.is_favorite ? '★' : '☆' }}
+						</button>
+						<button
+							@click="downloadFile(file.id, file.title)"
+							class="download-btn"
+						>
+							Скачать
+						</button>
+						<button @click="deleteFile(file.id)" class="delete-btn">
+							Удалить
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
-		<button
-			@click="downloadAllFiles"
-			class="download-all-btn"
-			v-if="files.length > 0"
-		>
-			Скачать все файлы (ZIP)
-		</button>
-		<button
-			@click="deleteAllFiles"
-			class="delete-all-btn"
-			v-if="files.length > 0"
-		>
-			Удалить все файлы
-		</button>
-		<button
-			@click="exportMyToExcel"
-			class="export-btn"
-			v-if="files.length > 0"
-		>
-			Экспорт в Excel
-		</button>
 	</div>
 </template>
 
@@ -330,7 +333,7 @@ watch([searchQuery, selectedStage, sortBy], loadFiles);
 }
 
 .files-list-container {
-	max-width: 1280px;
+	max-width: 1400px;
 	margin: 0 auto;
 	padding: 36px 32px 48px;
 	font-family: Roboto, 'Segoe UI', Arial, sans-serif;
@@ -338,27 +341,27 @@ watch([searchQuery, selectedStage, sortBy], loadFiles);
 }
 
 /* Заголовок */
-
 h1 {
 	margin: 0 0 24px;
 	font-size: 32px;
 	font-weight: 700;
 	letter-spacing: -0.02em;
+	text-align: center;
 }
 
 /* ФИЛЬТРЫ */
-
 .filters {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 14px;
-	margin-bottom: 24px;
+	margin-bottom: 32px;
 	padding: 24px;
 	background: #ffffff;
 	border: 1px solid rgba(103, 80, 164, 0.08);
 	border-radius: 24px;
 	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05),
 		0 12px 32px rgba(15, 23, 42, 0.08);
+	justify-content: center;
 }
 
 .search-input,
@@ -377,6 +380,7 @@ h1 {
 .search-input {
 	flex: 1;
 	min-width: 220px;
+	max-width: 300px;
 }
 
 .filter-select,
@@ -392,7 +396,6 @@ h1 {
 }
 
 /* КНОПКА СБРОСА */
-
 .reset-btn {
 	height: 48px;
 	padding: 0 18px;
@@ -410,7 +413,6 @@ h1 {
 }
 
 /* СОСТОЯНИЯ */
-
 .loading,
 .empty {
 	padding: 40px;
@@ -419,58 +421,87 @@ h1 {
 	font-size: 15px;
 }
 
-/* СПИСОК */
+/* HEADER с действиями */
+.actions-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 24px;
+	flex-wrap: wrap;
+	gap: 16px;
+}
 
-.files-list {
-	list-style: none;
-	padding: 0;
-	margin: 0;
+.results-info {
+	font-size: 14px;
+	color: #5f6368;
+}
+
+.action-buttons {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+/* СЕТКА ФАЙЛОВ */
+.files-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+	gap: 24px;
+	justify-items: center;
+	align-items: start;
+}
+
+/* КАРТОЧКА ФАЙЛА */
+.file-item {
+	width: 100%;
+	max-width: 500px;
+	background: #ffffff;
+	border: 1px solid rgba(103, 80, 164, 0.08);
+	border-radius: 20px;
+	padding: 20px;
+	transition: 0.2s;
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
 	display: flex;
 	flex-direction: column;
 	gap: 16px;
 }
 
-/* КАРТОЧКА */
-
-.file-item {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 16px;
-	padding: 20px 22px;
-	background: #ffffff;
-	border: 1px solid rgba(103, 80, 164, 0.08);
-	border-radius: 20px;
-	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
-	transition: 0.2s;
-}
-
 .file-item:hover {
-	transform: translateY(-2px);
+	transform: translateY(-4px);
 	box-shadow: 0 12px 24px rgba(103, 80, 164, 0.12);
 }
 
-/* ТЕКСТ */
-
+/* ЗАГОЛОВОК ФАЙЛА */
 .file-title-link {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: 600;
 	color: #1d1b20;
 	text-decoration: none;
+	display: block;
+	word-break: break-word;
 }
 
 .file-title-link:hover {
 	color: #6750a4;
 }
 
+/* ДЕТАЛИ ФАЙЛА */
+.file-details {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 12px;
+	align-items: center;
+}
+
 .stage {
-	padding: 6px 10px;
+	padding: 6px 12px;
 	border-radius: 999px;
 	background: #f3edff;
 	color: #4f378b;
 	font-size: 12px;
 	font-weight: 500;
 	border: 1px solid rgba(103, 80, 164, 0.12);
+	white-space: nowrap;
 }
 
 .date {
@@ -478,13 +509,19 @@ h1 {
 	color: #5f6368;
 }
 
-/* КНОПКИ */
+/* КНОПКИ ДЕЙСТВИЙ */
+.file-actions {
+	display: flex;
+	gap: 12px;
+	justify-content: flex-end;
+	margin-top: 8px;
+}
 
 .favorite-btn,
 .download-btn,
 .delete-btn {
 	height: 40px;
-	padding: 0 14px;
+	padding: 0 16px;
 	border-radius: 999px;
 	border: none;
 	cursor: pointer;
@@ -495,7 +532,9 @@ h1 {
 
 .favorite-btn {
 	background: transparent;
-	font-size: 18px;
+	font-size: 24px;
+	padding: 0;
+	width: 40px;
 }
 
 .favorite-btn.active {
@@ -510,6 +549,7 @@ h1 {
 	background: #6750a4;
 	color: white;
 	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
+	flex: 1;
 }
 
 .download-btn:hover {
@@ -518,10 +558,10 @@ h1 {
 }
 
 /* DELETE (опасное действие) */
-
 .delete-btn {
 	background: #fce8e6;
 	color: #b3261e;
+	flex: 1;
 }
 
 .delete-btn:hover {
@@ -529,27 +569,23 @@ h1 {
 }
 
 /* НИЖНЯЯ ПАНЕЛЬ */
-
-.results-info {
-	margin-top: 20px;
-	font-size: 14px;
-	color: #5f6368;
-}
-
 .download-all-btn,
-.export-btn {
-	margin-top: 14px;
-	margin-right: 12px;
+.export-btn,
+.delete-all-btn {
 	height: 44px;
 	padding: 0 20px;
 	border-radius: 999px;
 	border: none;
-	background: #6750a4;
-	color: white;
 	font-weight: 600;
 	cursor: pointer;
-	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
 	transition: 0.2s;
+}
+
+.download-all-btn,
+.export-btn {
+	background: #6750a4;
+	color: white;
+	box-shadow: 0 2px 6px rgba(103, 80, 164, 0.28);
 }
 
 .download-all-btn:hover,
@@ -558,20 +594,21 @@ h1 {
 	box-shadow: 0 6px 16px rgba(103, 80, 164, 0.3);
 }
 
-/* УДАЛИТЬ ВСЕ */
+.export-btn {
+	background: #22c55e;
+	color: white;
+	box-shadow: 0 2px 6px rgba(34, 197, 94, 0.28);
+}
+
+.export-btn:hover {
+	background: #16a34a;
+	box-shadow: 0 6px 16px rgba(34, 197, 94, 0.3);
+}
 
 .delete-all-btn {
-	margin-top: 14px;
-	height: 44px;
-	padding: 0 20px;
-	border-radius: 999px;
-	border: none;
 	background: #b3261e;
 	color: white;
-	font-weight: 600;
-	cursor: pointer;
 	box-shadow: 0 2px 6px rgba(179, 38, 30, 0.3);
-	transition: 0.2s;
 }
 
 .delete-all-btn:hover {
@@ -580,12 +617,50 @@ h1 {
 }
 
 /* АДАПТИВ */
-
 @media (max-width: 900px) {
+	.files-list-container {
+		padding: 20px 16px;
+	}
+
+	.files-grid {
+		grid-template-columns: 1fr;
+		justify-items: center;
+	}
+
 	.file-item {
+		max-width: 100%;
+	}
+
+	.filters {
+		justify-content: stretch;
+	}
+
+	.search-input {
+		max-width: none;
+	}
+
+	.actions-header {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.action-buttons {
+		justify-content: center;
+	}
+
+	.file-details {
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 10px;
+	}
+
+	.file-actions {
+		flex-wrap: wrap;
+	}
+
+	.favorite-btn {
+		width: auto;
+		padding: 0 16px;
+		font-size: 18px;
 	}
 }
 </style>
